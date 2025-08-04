@@ -1,6 +1,14 @@
+// src/controllers/persona.controller.ts
+
 import { Request, Response } from 'express';
-import { crearPersona, obtenerPersonaPorId, obtenerPersonas, actualizarPersona, eliminarPersona } from '../services/persona.service';
-import { crearPersonaSchema } from '../dtos/persona.dto';
+import {
+    crearPersona,
+    obtenerPersonaPorId,
+    obtenerPersonas,
+    actualizarPersona,
+    eliminarPersona
+} from '../services/persona.service';
+import { crearPersonaSchema, actualizarPersonaSchema } from '../dtos/persona.dto';
 
 export const crearPersonaController = async (req: Request, res: Response) => {
     try {
@@ -16,7 +24,7 @@ export const crearPersonaController = async (req: Request, res: Response) => {
     }
 };
 
-export const obtenerPersonasController = async (req: Request, res: Response) => {
+export const obtenerPersonasController = async (_req: Request, res: Response) => {
     try {
         const personas = await obtenerPersonas();
         return res.status(200).json(personas);
@@ -41,7 +49,8 @@ export const obtenerPersonaPorIdController = async (req: Request, res: Response)
 export const actualizarPersonaController = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const parsed = crearPersonaSchema.safeParse(req.body);
+        // Usamos el esquema de actualización que permite campos parciales
+        const parsed = actualizarPersonaSchema.safeParse(req.body);
         if (!parsed.success) {
             return res.status(400).json({ error: parsed.error.format() });
         }

@@ -56,12 +56,16 @@ model usuarios {
 }
 
 model personas {
-  id        Int                 @id @default(autoincrement())
-  nombre    String              @db.VarChar(150)
-  correo    String?             @unique @db.VarChar(100)
-  cargo     String              @db.VarChar(100)
-  empresa   String?             @db.VarChar(100)
-  telefono  String?             @db.VarChar(50)
+  id        Int      @id @default(autoincrement())
+  nombre    String   @db.VarChar(150)
+  correo    String?  @unique @db.VarChar(100)
+  document  String?  @unique @db.VarChar(50)
+  empresa   String?  @db.VarChar(100)
+  telefono  String?  @db.VarChar(50)
+  
+  cargo_id  Int?
+  cargo     cargos?  @relation(fields: [cargo_id], references: [id])
+  
   proyectos persona_proyecto[]
 }
 
@@ -82,4 +86,10 @@ enum usuarios_rol {
   admin
   gestor
   consulta
+}
+
+model cargos {
+  id        Int     @id
+  name      String  @db.VarChar(255)
+  personas  personas[]
 }
