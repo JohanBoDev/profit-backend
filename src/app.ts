@@ -22,10 +22,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Ruta base de prueba
-app.get('/api', (req, res) => {
-    res.json({ message: '¡Bienvenido a la API de Profit!' });
+app.get('/', (req, res) => {
+    res.send('🚀 API Profit Backend está funcionando');
 });
-
 // Montar rutas de módulos
 app.use('/api/auth', authRoutes);
 app.use('/api/proyectos', proyectosRoutes);
