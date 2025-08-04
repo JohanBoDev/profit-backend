@@ -16,7 +16,10 @@ import exportRoutes from './routes/export.routes';
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: '*', // o especifica tu frontend si lo tienes: 'http://localhost:5173'
+    credentials: true,
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
