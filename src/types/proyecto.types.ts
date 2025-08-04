@@ -1,0 +1,31 @@
+export interface Proyecto {
+    id: number;
+    ceco_anterior?: string;
+    id_sap?: string;
+    nombre?: string;
+    tipo_reconocimiento?: string;
+    descripcion?: string;
+    cliente?: string;
+    sector?: string;
+    pais?: string;
+    empresa?: string;
+    agrupacion_n1?: string;
+    agrupacion_n2?: string;
+    bl?: string;
+    bu?: string;
+    ol?: string;
+    account_manager?: string;
+    preventa?: string;
+    project_manager?: string;
+    estado_ejecucion?: string;
+    estado_sap?: string;
+    fecha_cierre_financiera?: string;
+    fecha_inicio_contractual?: string;
+    fecha_fin_contractual?: string;
+    tcv?: number;
+    venta_revenue?: number;
+    venta_cost?: number;
+    venta_dm?: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
