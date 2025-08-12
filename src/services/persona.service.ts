@@ -68,3 +68,29 @@ export const eliminarPersona = async (id: number) => {
     const personaEliminada = await prisma.personas.delete({ where: { id } });
     return personaEliminada;
 };
+
+export const obtenerPersonasPorCargo = async (cargoId: number) => {
+    return prisma.personas.findMany({
+        // ACTUALIZADO: El 'where' ahora filtra directamente por la columna 'cargo_id'
+        where: {
+            cargo_id: cargoId // Como se ve en tu tabla de personas
+        },
+        orderBy: {
+            nombre: 'asc'
+        },
+        select: {
+            id: true,
+            nombre: true,
+            correo: true,
+            cargo: true
+        }
+    });
+};
+
+export const obtenerCargos = async () => {
+    return prisma.cargos.findMany({
+        orderBy: {
+            name: 'asc'
+        }
+    });
+};

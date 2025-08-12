@@ -10,7 +10,9 @@ export const proyectoSchema = z.object({
 
     cliente: z.string().trim().min(2, 'El cliente es requerido'),
     sector: z.string().optional(),
-    pais: z.string().trim().min(2, 'El país es requerido'),
+    pais: z.enum(['España', 'Colombia', 'EEUU', 'Francia', 'Panamá', 'Perú'], {
+        message: 'País no válido'
+    }),
     empresa: z.string().trim().min(2, 'La empresa es requerida'),
 
     agrupacion_n1: z.string().optional(),
@@ -22,11 +24,11 @@ export const proyectoSchema = z.object({
     preventa: z.string().optional(),
     project_manager: z.string().trim().min(2, 'El project manager es requerido'),
 
-    estado_ejecucion: z.enum(['En preparación', 'En ejecución', 'Finalizado', 'Cerrado'], {
+    estado_ejecucion: z.enum(['Finalizado', 'Abierto', 'Aprobado', 'Rechazado', 'Cerrado'], {
         message: 'Estado de ejecución no válido'
     }).optional(),
 
-    estado_sap: z.enum(['Abierto', 'Cerrado', 'Completado'], {
+    estado_sap: z.enum(['Abierto', 'Cerrado', 'Completado', 'En Ejecucion'], {
         message: 'Estado SAP no válido'
     }).optional(),
 

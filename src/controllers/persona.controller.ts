@@ -6,7 +6,9 @@ import {
     obtenerPersonaPorId,
     obtenerPersonas,
     actualizarPersona,
-    eliminarPersona
+    eliminarPersona,
+    obtenerPersonasPorCargo,
+    obtenerCargos
 } from '../services/persona.service';
 import { crearPersonaSchema, actualizarPersonaSchema } from '../dtos/persona.dto';
 
@@ -67,6 +69,35 @@ export const eliminarPersonaController = async (req: Request, res: Response) => 
     try {
         const personaEliminada = await eliminarPersona(Number(id));
         return res.status(200).json(personaEliminada);
+    } catch (error: any) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+
+export const obtenerPersonasPorCargoController = async (req: Request, res: Response) => {
+    try {
+        // 1. Obtenemos el ID de los parámetros de la URL
+        const { cargoId } = req.params;
+
+        // 2. Convertimos el ID a un número y validamos
+        const idNumerico = parseInt(cargoId, 10);
+        if (isNaN(idNumerico)) {
+            return res.status(400).json({ error: 'El ID del cargo debe ser un número válido.' });
+        }
+
+        // 3. Llamamos a la función del servicio con el ID validado
+        const personas = await obtenerPersonasPorCargo(idNumerico);
+
+        return res.status(200).json(personas);
+    } catch (error: any) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+
+export const obtenerCargosController = async (_req: Request, res: Response) => {
+    try {
+        const cargos = await obtenerCargos();
+        return res.status(200).json(cargos);
     } catch (error: any) {
         return res.status(500).json({ error: error.message });
     }
