@@ -34,3 +34,15 @@ export const eliminarUsuario = async (id: number) => {
     await prisma.usuarios.delete({ where: { id } });
     return { message: 'Usuario eliminado correctamente' };
 };
+
+export const obtenerUsuarioPorId = async (id: number) => {
+    return await prisma.usuarios.findUnique({
+        where: { id },
+        select: {
+            id: true,
+            nombre: true,
+            correo: true,
+            rol: true,
+        },
+    });
+};

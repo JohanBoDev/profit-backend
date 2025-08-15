@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const SECRET = process.env.JWT_SECRET || 'mi_clave_super_secreta';
+const SECRET = process.env.JWT_SECRET || '';
 
 interface JwtPayload {
     id: number;
@@ -22,7 +22,10 @@ export const verifyToken = (req: AuthRequest, res: Response, next: NextFunction)
     const token = authHeader.split(' ')[1];
 
     try {
-        const decoded = jwt.verify(token, SECRET) as JwtPayload;
+        if (!SECRET) {
+            return res.status(500).json({ error: 'Error interno: clave secreta no configurada' });
+        }
+        const decoded = jwt.verify(token, SECRET) as unknown as JwtPayload;
         req.user = decoded;
         next();
     } catch (error) {

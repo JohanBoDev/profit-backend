@@ -3,6 +3,7 @@ import {
     obtenerUsuarios,
     actualizarUsuario,
     eliminarUsuario,
+    obtenerUsuarioPorId
 } from '../services/usuario.service';
 import { actualizarUsuarioSchema } from '../dtos/usuario.dto';
 
@@ -36,6 +37,19 @@ export const eliminarUsuarioController = async (req: Request, res: Response) => 
         const id = Number(req.params.id);
         const result = await eliminarUsuario(id);
         res.status(200).json(result);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const obtenerUsuarioPorIdController = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+        const usuario = await obtenerUsuarioPorId(id);
+        if (!usuario) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        res.status(200).json(usuario);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }

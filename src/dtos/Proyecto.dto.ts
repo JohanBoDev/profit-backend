@@ -2,10 +2,13 @@ import { z } from 'zod';
 
 export const proyectoSchema = z.object({
     ceco_anterior: z.string().optional(),
-    id_sap: z.string().optional(),
+    id_sap: z.union([
+        z.undefined(),
+        z.coerce.string().regex(/^\d+$/, 'El ID SAP solo debe contener números')
+    ]),
 
     nombre: z.string().trim().min(1, 'El nombre es requerido'),
-    tipo_reconocimiento: z.string().optional(),
+    tipo_reconocimiento: z.string().optional().nullable(),
     descripcion: z.string().trim().min(10, 'La descripción debe tener al menos 10 caracteres'),
 
     cliente: z.string().trim().min(2, 'El cliente es requerido'),
@@ -15,22 +18,22 @@ export const proyectoSchema = z.object({
     }),
     empresa: z.string().trim().min(2, 'La empresa es requerida'),
 
-    agrupacion_n1: z.string().optional(),
-    agrupacion_n2: z.string().optional(),
-    bl: z.string().optional(),
-    bu: z.string().optional(),
-    ol: z.string().optional(),
-    account_manager: z.string().optional(),
-    preventa: z.string().optional(),
+    agrupacion_n1: z.string().nullable().optional(),
+    agrupacion_n2: z.string().nullable().optional(),
+    bl: z.string().nullable().optional(),
+    bu: z.string().nullable().optional(),
+    ol: z.string().nullable().optional(),
+    account_manager: z.string().nullable().optional(),
+    preventa: z.string().nullable().optional(),
     project_manager: z.string().trim().min(2, 'El project manager es requerido'),
 
     estado_ejecucion: z.enum(['Finalizado', 'Abierto', 'Aprobado', 'Rechazado', 'Cerrado'], {
         message: 'Estado de ejecución no válido'
-    }).optional(),
+    }),
 
     estado_sap: z.enum(['Abierto', 'Cerrado', 'Completado', 'En Ejecucion'], {
         message: 'Estado SAP no válido'
-    }).optional(),
+    }),
 
     fecha_cierre_financiera: z.string().optional(),
     fecha_inicio_contractual: z.string().refine(val => !isNaN(Date.parse(val)), {
