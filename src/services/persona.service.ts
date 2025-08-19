@@ -1,9 +1,8 @@
 // src/services/persona.service.ts
 
-import { PrismaClient } from '@prisma/client';
 import { CrearPersonaDTO, ActualizarPersonaDTO } from '../dtos/persona.dto';
+import { prisma } from '../db/prisma'
 
-const prisma = new PrismaClient();
 
 export const crearPersona = async (data: CrearPersonaDTO) => {
     if (data.correo) {

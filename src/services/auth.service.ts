@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../db/prisma'
 import bcrypt from 'bcrypt';
 import { RegistroDTO } from '../dtos/usuario.dto';
 import jwt from 'jsonwebtoken';
 import { LoginDTO } from '../dtos/usuario.dto';
 
-const prisma = new PrismaClient();
 
 export const registerUser = async (data: RegistroDTO) => {
     const { nombre, correo, password, rol = 'consulta' } = data;

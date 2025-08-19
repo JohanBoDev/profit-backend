@@ -1,10 +1,8 @@
 import ExcelJS from 'exceljs';
 import { Response } from 'express';
 // Importa el cliente de Prisma y el tipo de dato 'proyectos' generado
-import { PrismaClient, proyectos as ProyectoType } from '@prisma/client';
-
-// Crea una instancia del cliente de Prisma
-const prisma = new PrismaClient();
+import { proyectos as ProyectoType } from '@prisma/client';
+import { prisma } from '../db/prisma'
 
 export const exportarProyectosService = async (res: Response, proyectosIds?: number[]) => {
     const workbook = new ExcelJS.Workbook();

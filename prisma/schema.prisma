@@ -35,11 +35,11 @@ model proyectos {
   venta_revenue            Decimal?           @db.Decimal(18, 2)
   venta_cost               Decimal?           @db.Decimal(18, 2)
   venta_dm                 Decimal?           @db.Decimal(18, 2)
-  venta_dm_porcentaje      Decimal?                @db.Decimal(5, 2)
   es_renovacion            Boolean            @default(false)
   proyecto_origen_id       Int?
   notas_de_renovacion      String?            @db.Text
   version                  Int?               @default(1)
+  venta_dm_porcentaje      Decimal?           @db.Decimal(5, 2)
   persona_proyecto         persona_proyecto[]
   proyecto_origen          proyectos?         @relation("Renovaciones", fields: [proyecto_origen_id], references: [id])
   renovaciones             proyectos[]        @relation("Renovaciones")
@@ -60,10 +60,10 @@ model personas {
   id        Int                @id @default(autoincrement())
   nombre    String             @db.VarChar(150)
   correo    String?            @unique(map: "correo") @db.VarChar(100)
-  document  String?            @unique(map: "document") @db.VarChar(50)
   empresa   String?            @db.VarChar(100)
   telefono  String?            @db.VarChar(50)
   cargo_id  Int?
+  document  String?            @unique(map: "document") @db.VarChar(50)
   proyectos persona_proyecto[]
   cargo     cargos?            @relation(fields: [cargo_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "personas_ibfk_1")
 

@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import { AsignarPersonaDTO } from '../dtos/personaProyecto.dto';
+import { prisma } from '../db/prisma'
 
-const prisma = new PrismaClient();
+
 
 export const asignarPersonaAProyecto = async (data: AsignarPersonaDTO) => {
     const { persona_id, proyecto_id, rol_asignado } = data;

@@ -4,9 +4,7 @@ import { registerUser } from '../services/auth.service';
 import { loginUser } from '../services/auth.service';
 import { loginSchema, LoginDTO } from '../dtos/usuario.dto';
 import { AuthRequest } from '../middlewares/auth.middleware';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../db/prisma'
 
 
 export const register = async (req: Request, res: Response) => {
